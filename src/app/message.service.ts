@@ -10,7 +10,13 @@ export class MessageService {
 
   clear() {
     if(confirm('Do you really want to clear?')) {
-      this.messages = [];
+
+      if (this.messages.length > 4) {
+        this.messages.splice(0, 4);
+      } else {
+        this.messages = [];
+      }
+
     }
   }
 }
