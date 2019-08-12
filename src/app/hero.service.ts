@@ -17,15 +17,27 @@ export class HeroService {
 
   private heroesUrl = 'api/heroes';  // URL to web api
 
+  heroesLen$: Observable<number>; // Heroes length
+
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
+
+  /** Set Heroes Length */
+  setHeroesLen (heroesNum: number): void {
+    this.heroesLen$ = of(heroesNum);
+  }
 
   /** GET heroes from the server */
   getHeroes (): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.heroesUrl)
       .pipe(
-        tap(heroes => this.log(`fetched heroes`)),
+        tap(
+          heroes => {
+            this.log(`fetched heroes`)
+            this.heroesLen$ = of(heroes.length);
+          }
+        ),
         catchError(this.handleError('getHeroes', []))
       );
   }
