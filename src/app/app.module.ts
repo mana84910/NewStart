@@ -13,6 +13,7 @@ import { HeroDetailComponent }  from './hero-detail/hero-detail.component';
 import { HeroService }          from './hero.service';
 import { MessageService }       from './message.service';
 import { MessagesComponent }    from './messages/messages.component';
+import { NavService } from './nav.service';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { MessagesComponent }    from './messages/messages.component';
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
+      InMemoryDataService, { dataEncapsulation: false, passThruUnknownUrl: true }
     )
   ],
   declarations: [
@@ -33,7 +34,11 @@ import { MessagesComponent }    from './messages/messages.component';
     HeroDetailComponent,
     MessagesComponent,
   ],
-  providers: [ HeroService, MessageService ],
+  providers: [
+    HeroService,
+    MessageService,
+    NavService
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
