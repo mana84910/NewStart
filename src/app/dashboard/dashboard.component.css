@@ -70,3 +70,8 @@ h4 {
     width: 50%;
   }
 }
+@media (max-width: 767px) {
+  .col-1-4 {
+    width: 100%;
+  }
+}
